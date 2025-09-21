@@ -65,4 +65,25 @@ public static function allWithTransactionSummary() {
         ";
         return $db->query($query)->fetchAll();
     }
+    public static function searchWithSummary($keyword) {
+        $db = Database::getInstance();
+        $sqlKeyword = '%' . $keyword . '%'; // Siapkan keyword untuk LIKE
+        
+        $query = "
+            SELECT 
+                c.id_customer, c.nama_customer, c.alamat, c.telp,
+                COUNT(s.id_sales) as jumlah_transaksi,
+                SUM(t.amount) as total_belanja
+            FROM customers c
+            LEFT JOIN sales s ON c.id_customer = s.id_customer
+            LEFT JOIN transactions t ON s.id_sales = t.id_sales
+            WHERE c.nama_customer LIKE ? OR c.alamat LIKE ? OR c.telp LIKE ?
+            GROUP BY c.id_customer, c.nama_customer, c.alamat, c.telp
+            ORDER BY total_belanja DESC
+        ";
+        
+        $stmt = $db->prepare($query);
+        $stmt->execute([$sqlKeyword, $sqlKeyword, $sqlKeyword]);
+        return $stmt->fetchAll();
+    }
 }

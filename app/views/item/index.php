@@ -14,7 +14,7 @@
                     <tr>
                         <th>No</th>
                         <th>Nama Item</th>
-                        <th>Satuan (UOM)</th>
+                        <th>Satuan</th>
                         <th>Harga Beli</th>
                         <th>Harga Jual</th>
                         <th width="150px">Aksi</th>

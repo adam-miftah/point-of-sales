@@ -26,7 +26,6 @@ class AuthController {
                 $_SESSION['level'] = $user['id_level']; // Simpan juga level user
 
                 // Redirect ke halaman dashboard atau halaman utama
-                // Pastikan Anda memiliki routing untuk controller=dashboard
                 header("Location: index.php?controller=dashboard"); 
                 exit;
             } else {

@@ -1,6 +1,27 @@
 <h2 class="mb-4">Laporan Stok dan Penjualan Item</h2>
 
+<div class="card shadow mb-4">
+    <div class="card-body">
+        <form method="GET">
+            <input type="hidden" name="controller" value="report">
+            <input type="hidden" name="action" value="items">
+            <div class="form-row align-items-end">
+                <div class="col-md-10">
+                    <label for="search">Cari Item (Nama)</label>
+                    <input type="text" name="search" class="form-control" value="<?= htmlspecialchars($keyword ?? ''); ?>" placeholder="Ketik nama item...">
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary btn-block">Cari</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
 <div class="card shadow">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Hasil Laporan Stok Item</h6>
+    </div>
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-bordered table-striped">
@@ -29,7 +50,7 @@
                         <?php endforeach; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="6" class="text-center">Belum ada data item.</td>
+                            <td colspan="6" class="text-center">Data tidak ditemukan.</td>
                         </tr>
                     <?php endif; ?>
                 </tbody>

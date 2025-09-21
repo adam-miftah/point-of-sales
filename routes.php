@@ -142,6 +142,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         case 'delete':
             if ($id) $ctrl->delete($id);
             break;
+        case 'detail':
+            if ($id) $ctrl->detail($id);
+            break;
         case 'receipt':
             if ($id) $ctrl->receipt($id);
             break;
@@ -150,6 +153,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             break;
         case 'logout':
             $ctrl->logout();
+            break;
+        case 'sales':
+             if ($controller_name == 'report') $ctrl->sales();
+            break;
+        case 'customers':
+            if ($controller_name == 'report') $ctrl->customers();
+            break;
+        case 'items':
+            if ($controller_name == 'report') $ctrl->items();
             break;
         default:
             if ($controller_name == 'report') {

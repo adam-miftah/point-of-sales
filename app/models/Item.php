@@ -63,4 +63,24 @@ public static function allWithStockSummary() {
         ";
         return $db->query($query)->fetchAll();
     }
+    public static function searchWithSummary($keyword) {
+        $db = Database::getInstance();
+        $sqlKeyword = '%' . $keyword . '%';
+        
+        $query = "
+            SELECT 
+                i.id_item, i.nama_item, i.uom, i.harga_jual,
+                IFNULL(SUM(t.quantity), 0) as total_terjual,
+                IFNULL(SUM(t.amount), 0) as total_pendapatan
+            FROM items i
+            LEFT JOIN transactions t ON i.id_item = t.id_item
+            WHERE i.nama_item LIKE ?
+            GROUP BY i.id_item, i.nama_item, i.uom, i.harga_jual
+            ORDER BY total_terjual DESC
+        ";
+        
+        $stmt = $db->prepare($query);
+        $stmt->execute([$sqlKeyword]);
+        return $stmt->fetchAll();
+    }
 }

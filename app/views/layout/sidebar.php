@@ -13,6 +13,9 @@ $action_name = $_GET['action'] ?? 'index';
         <a href="index.php?controller=sales&action=create" class="list-group-item list-group-item-action bg-dark text-white <?= ($controller_name == 'sales') ? 'active' : '' ?>">
             <i class="fas fa-fw fa-cash-register mr-2"></i>Transaksi Baru
         </a>
+        <a href="index.php?controller=sales&action=index" class="list-group-item list-group-item-action bg-dark text-white <?= ($controller_name == 'sales' && $action_name != 'create') ? 'active' : '' ?>">
+    <i class="fas fa-fw fa-history mr-2"></i>Daftar Transaksi
+</a>
         
         <div class="sidebar-heading text-secondary pt-3">Master Data</div>
         <a href="index.php?controller=customer" class="list-group-item list-group-item-action bg-dark text-white <?= ($controller_name == 'customer') ? 'active' : '' ?>">

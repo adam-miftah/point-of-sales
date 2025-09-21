@@ -6,31 +6,31 @@
     </div>
     <div class="card-body">
         <form method="GET">
-            <input type="hidden" name="controller" value="report">
-            <input type="hidden" name="action" value="sales">
-            <div class="form-row align-items-end">
-                <div class="col-md-4">
-                    <label for="start_date">Dari Tanggal</label>
-                    <input type="date" name="start_date" class="form-control" value="<?= htmlspecialchars($startDate); ?>" required>
-                </div>
-                <div class="col-md-4">
-                    <label for="end_date">Sampai Tanggal</label>
-                    <input type="date" name="end_date" class="form-control" value="<?= htmlspecialchars($endDate); ?>" required>
-                </div>
-                <div class="form-row align-items-end">
-                  <div class="col-md-2">
-                      <button type="submit" class="btn btn-primary">Tampilkan</button>
-                  </div>
-                  <div class="col-md-2">
-                      <?php if (!empty($startDate) && !empty($endDate)): ?>
-                          <a href="index.php?controller=report&action=printPdf&start_date=<?= htmlspecialchars($startDate) ?>&end_date=<?= htmlspecialchars($endDate) ?>" class="btn btn-danger" target="_blank">
-                              <i class="fas fa-file-pdf"></i> Cetak PDF
-                          </a>
-                      <?php endif; ?>
-                  </div>
-              </div>
-            </div>
-        </form>
+    <input type="hidden" name="controller" value="report">
+    <input type="hidden" name="action" value="sales">
+    <div class="form-row align-items-end">
+        <div class="col-md-4">
+            <label for="start_date">Dari Tanggal</label>
+            <input type="date" name="start_date" class="form-control" value="<?= htmlspecialchars($startDate ?? ''); ?>" required>
+        </div>
+        <div class="col-md-4">
+            <label for="end_date">Sampai Tanggal</label>
+            <input type="date" name="end_date" class="form-control" value="<?= htmlspecialchars($endDate ?? ''); ?>" required>
+        </div>
+        <div class="col-md-4">
+            <button type="submit" class="btn btn-primary mr-1">Tampilkan</button>
+            
+            <?php if (!empty($startDate) && !empty($endDate)): ?>
+                <a href="index.php?controller=report&action=printPdf&start_date=<?= htmlspecialchars($startDate) ?>&end_date=<?= htmlspecialchars($endDate) ?>" class="btn btn-danger mr-1" target="_blank">
+                    <i class="fas fa-file-pdf"></i> PDF
+                </a>
+                <a href="index.php?controller=report&action=exportExcel&start_date=<?= htmlspecialchars($startDate) ?>&end_date=<?= htmlspecialchars($endDate) ?>" class="btn btn-success">
+                    <i class="fas fa-file-excel"></i> Excel
+                </a>
+            <?php endif; ?>
+        </div>
+    </div>
+</form>
     </div>
 </div>
 

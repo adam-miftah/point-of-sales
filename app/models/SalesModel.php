@@ -75,4 +75,27 @@ public static function findWithDetails($id) {
         $stmt->execute([$startDate, $endDate]);
         return $stmt->fetchAll();
     }
+    public static function delete($id) {
+        $db = Database::getInstance();
+        // Karena ada ON DELETE CASCADE di database, transactions terkait akan ikut terhapus
+        $stmt = $db->prepare("DELETE FROM sales WHERE id_sales = ?");
+        return $stmt->execute([$id]);
+    }
+
+    public static function update($id, $data) {
+        $db = Database::getInstance();
+        $stmt = $db->prepare("UPDATE sales SET id_customer = ?, tgl_sales = ?, status = ? WHERE id_sales = ?");
+        return $stmt->execute([
+            $data['id_customer'],
+            $data['tgl_sales'],
+            $data['status'],
+            $id
+        ]);
+    }
+    public static function find($id) {
+        $db = Database::getInstance();
+        $stmt = $db->prepare("SELECT * FROM sales WHERE id_sales = ?");
+        $stmt->execute([$id]);
+        return $stmt->fetch();
+    }
 }
