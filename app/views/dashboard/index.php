@@ -99,7 +99,7 @@
                             <tr>
                                 <td>INV-<?= htmlspecialchars($sale['id_sales']); ?></td>
                                 <td><?= htmlspecialchars($sale['nama_customer']); ?></td>
-                                <td><?= date("d F Y, H:i", strtotime($sale['tgl_sales'])); ?></td>
+                                <td><?= date("d F Y, h:i", strtotime($sale['tgl_sales'])); ?></td>
                                 <td><span class="badge badge-success"><?= htmlspecialchars($sale['status']); ?></span></td>
                                 <td>
                                     <a href="index.php?controller=sales&action=receipt&id=<?= $sale['id_sales']; ?>" class="btn btn-info btn-sm">

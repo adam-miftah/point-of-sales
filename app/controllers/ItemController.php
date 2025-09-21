@@ -36,7 +36,8 @@ class ItemController {
                 'nama_item'  => $_POST['nama_item'] ?? '',
                 'uom'        => $_POST['uom'] ?? '',
                 'harga_beli' => $_POST['harga_beli'] ?? 0,
-                'harga_jual' => $_POST['harga_jual'] ?? 0
+                'harga_jual' => $_POST['harga_jual'] ?? 0,
+                 'stok'       => $_POST['stok'] ?? 0 
             ];
             Item::create($data);
             // Redirect kembali ke halaman daftar item
@@ -66,7 +67,8 @@ class ItemController {
                 'nama_item'  => $_POST['nama_item'] ?? '',
                 'uom'        => $_POST['uom'] ?? '',
                 'harga_beli' => $_POST['harga_beli'] ?? 0,
-                'harga_jual' => $_POST['harga_jual'] ?? 0
+                'harga_jual' => $_POST['harga_jual'] ?? 0,
+                 'stok'       => $_POST['stok'] ?? 0
             ];
             Item::update($id, $data);
             header("Location: index.php?controller=item&action=index");

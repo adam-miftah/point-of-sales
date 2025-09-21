@@ -16,23 +16,25 @@ class Item {
 
     public static function create($data) {
         $db = Database::getInstance();
-        $stmt = $db->prepare("INSERT INTO items (nama_item, uom, harga_beli, harga_jual) VALUES (?, ?, ?, ?)");
-        return $stmt->execute([
-            $data['nama_item'],
-            $data['uom'],
-            $data['harga_beli'],
-            $data['harga_jual']
-        ]);
-    }
-
-    public static function update($id, $data) {
-        $db = Database::getInstance();
-        $stmt = $db->prepare("UPDATE items SET nama_item=?, uom=?, harga_beli=?, harga_jual=? WHERE id_item=?");
+        $stmt = $db->prepare("INSERT INTO items (nama_item, uom, harga_beli, harga_jual, stok) VALUES (?, ?, ?, ?, ?)");
         return $stmt->execute([
             $data['nama_item'],
             $data['uom'],
             $data['harga_beli'],
             $data['harga_jual'],
+            $data['stok']
+        ]);
+    }
+
+    public static function update($id, $data) {
+        $db = Database::getInstance();
+        $stmt = $db->prepare("UPDATE items SET nama_item=?, uom=?, harga_beli=?, harga_jual=?, stok=? WHERE id_item=?");
+        return $stmt->execute([
+            $data['nama_item'],
+            $data['uom'],
+            $data['harga_beli'],
+            $data['harga_jual'],
+            $data['stok'],
             $id
         ]);
     }
@@ -42,11 +44,13 @@ class Item {
         $stmt = $db->prepare("DELETE FROM items WHERE id_item = ?");
         return $stmt->execute([$id]);
     }
+
     public static function count() {
-    $db = Database::getInstance();
-    return $db->query("SELECT COUNT(*) FROM items")->fetchColumn();
-}
-public static function allWithStockSummary() {
+        $db = Database::getInstance();
+        return $db->query("SELECT COUNT(*) FROM items")->fetchColumn();
+    }
+
+    public static function allWithStockSummary() {
         $db = Database::getInstance();
         $query = "
             SELECT 
@@ -54,6 +58,7 @@ public static function allWithStockSummary() {
                 i.nama_item,
                 i.uom,
                 i.harga_jual,
+                i.stok,
                 IFNULL(SUM(t.quantity), 0) as total_terjual,
                 IFNULL(SUM(t.amount), 0) as total_pendapatan
             FROM items i
@@ -63,13 +68,15 @@ public static function allWithStockSummary() {
         ";
         return $db->query($query)->fetchAll();
     }
-    public static function searchWithSummary($keyword) {
+    
+    // Metode ini diganti namanya agar tidak duplikat dengan yang di bawah
+    public static function searchWithSummaryAndStock($keyword) {
         $db = Database::getInstance();
         $sqlKeyword = '%' . $keyword . '%';
         
         $query = "
             SELECT 
-                i.id_item, i.nama_item, i.uom, i.harga_jual,
+                i.id_item, i.nama_item, i.uom, i.harga_jual, i.stok,
                 IFNULL(SUM(t.quantity), 0) as total_terjual,
                 IFNULL(SUM(t.amount), 0) as total_pendapatan
             FROM items i
@@ -82,5 +89,12 @@ public static function allWithStockSummary() {
         $stmt = $db->prepare($query);
         $stmt->execute([$sqlKeyword]);
         return $stmt->fetchAll();
+    }
+
+    // Hanya pertahankan satu metode reduceStock ini
+    public static function reduceStock($itemId, $quantity) {
+        $db = Database::getInstance();
+        $stmt = $db->prepare("UPDATE items SET stok = stok - ? WHERE id_item = ?");
+        return $stmt->execute([$quantity, $itemId]);
     }
 }

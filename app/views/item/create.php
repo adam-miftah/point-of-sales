@@ -20,6 +20,10 @@
                 <label for="harga_jual">Harga Jual</label>
                 <input type="number" name="harga_jual" class="form-control" required>
             </div>
+            <div class="form-group">
+                <label for="stok">Jumlah Stok Awal</label>
+                <input type="number" name="stok" class="form-control" value="<?= htmlspecialchars($item['stok'] ?? 0); ?>" required>
+            </div>
             
             <button type="submit" class="btn btn-primary">Simpan</button>
             <a href="index.php?controller=item&action=index" class="btn btn-secondary">Batal</a>

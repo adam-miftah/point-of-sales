@@ -45,6 +45,14 @@ class SalesController {
             exit;
         }
 
+        $cartItems = $_POST['items'];
+        foreach ($cartItems as $item) {
+            $product = Item::find($item['id_item']);
+            if ($product['stok'] < $item['quantity']) {
+                die("Transaksi Gagal: Stok untuk item '<strong>" . htmlspecialchars($product['nama_item']) . "</strong>' tidak mencukupi. Sisa stok: " . $product['stok'] . ". <a href='javascript:history.back()'>Kembali</a>");
+            }
+        }
+
         $db = Database::getInstance();
         try {
             $db->beginTransaction();
@@ -71,6 +79,7 @@ class SalesController {
                     'amount'     => $amount
                 ];
                 TransactionModel::create($transactionData);
+                 Item::reduceStock($item['id_item'], $item['quantity']);
             }
 
             $db->commit();

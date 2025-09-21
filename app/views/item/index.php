@@ -17,6 +17,7 @@
                         <th>Satuan</th>
                         <th>Harga Beli</th>
                         <th>Harga Jual</th>
+                        <th>Stok</th>
                         <th width="150px">Aksi</th>
                     </tr>
                 </thead>
@@ -30,6 +31,7 @@
                                 <td><?= htmlspecialchars($item['uom']); ?></td>
                                 <td>Rp <?= number_format($item['harga_beli'], 0, ',', '.'); ?></td>
                                 <td>Rp <?= number_format($item['harga_jual'], 0, ',', '.'); ?></td>
+                                <td><?= $item['stok']; ?></td>
                                 <td>
                                     <a href="index.php?controller=item&action=edit&id=<?= $item['id_item']; ?>" class="btn btn-sm btn-warning">Edit</a>
                                     <a href="index.php?controller=item&action=delete&id=<?= $item['id_item']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?');">
