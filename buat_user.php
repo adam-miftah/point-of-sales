@@ -16,8 +16,8 @@ echo "<h1>Membuat Pengguna Baru...</h1>";
 $dataUserBaru = [
     'nama_user'  => 'Adam',
     'username'   => 'adam',
-    'password'   => 'password123', // Ketik password asli di sini
-    'id_level'   => 1              // Ganti ID level (1=Admin, 2=Petugas, etc.)
+    'password'   => 'password123',
+    'id_level'   => 1 
 ];
 
 // 3. Panggil method create() dari UserModel

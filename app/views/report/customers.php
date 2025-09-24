@@ -6,13 +6,18 @@
             <input type="hidden" name="controller" value="report">
             <input type="hidden" name="action" value="customers">
             <div class="form-row align-items-end">
-                <div class="col-md-9">
+                <div class="col-md-8">
                     <label for="search">Cari Pelanggan (Nama / Alamat / Telepon)</label>
                     <input type="text" name="search" class="form-control" value="<?= htmlspecialchars($keyword ?? ''); ?>" placeholder="Ketik untuk mencari...">
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <button type="submit" class="btn btn-primary mr-1">Cari</button>
-                    <a href="index.php?controller=report&action=exportCustomers&search=<?= htmlspecialchars($keyword) ?>" class="btn btn-success">
+                    
+                    <a href="index.php?controller=report&action=printCustomersPdf&search=<?= htmlspecialchars($keyword ?? '') ?>" class="btn btn-danger mr-1" target="_blank">
+                        <i class="fas fa-file-pdf"></i> PDF
+                    </a>
+
+                    <a href="index.php?controller=report&action=exportCustomers&search=<?= htmlspecialchars($keyword ?? '') ?>" class="btn btn-success">
                         <i class="fas fa-file-excel"></i> Excel
                     </a>
                 </div>

@@ -113,10 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         case 'identitas':
             $ctrl->update();
             break;
-        case 'printPdf': 
-            $ctrl->printPdf();
-            break;
-            case 'customers': 
+        case 'customers': 
             $ctrl->customers();
             break;
         case 'items': 
@@ -162,6 +159,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             break;
         case 'items':
             if ($controller_name == 'report') $ctrl->items();
+            break;
+        case 'printPdf':
+            if ($controller_name == 'report') $ctrl->printPdf();
+            break;
+        case 'exportExcel':
+            if ($controller_name == 'report') $ctrl->exportExcel();
+            break;
+        case 'printCustomersPdf':
+            if ($controller_name == 'report') $ctrl->printCustomersPdf();
+            break;
+        case 'printItemsPdf': 
+            if ($controller_name == 'report') $ctrl->printItemsPdf(); 
             break;
         default:
             if ($controller_name == 'report') {
